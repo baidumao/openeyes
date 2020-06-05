@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_splash_screen/flutter_splash_screen.dart';
+import 'package:flutteropenyes/navigator/tab_navigation.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,14 +22,7 @@ class MyApp extends StatelessWidget {
     //解决启动白屏
     hideSplashscreen();
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Center(
-        child: Text("莎莎还是生活上"),
-      ),
+     navigatorKey: Get.key,home: TabNavigation(),
     );
   }
 
