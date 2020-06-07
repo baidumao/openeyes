@@ -6,6 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutteropenyes/config/string.dart';
 import 'package:flutteropenyes/model/home_page_model.dart';
 import 'package:flutteropenyes/model/issue_model.dart';
+import 'package:flutteropenyes/plugin/speech_plugin.dart';
 import 'package:flutteropenyes/widget/loading_caontainer.dart';
 import 'package:flutteropenyes/widget/provider_widget.dart';
 import 'package:flutteropenyes/widget/rank_widget_item.dart';
@@ -111,6 +112,9 @@ class _HomePageState extends State<HomePage> {
             },
             onTap: (index){
             //轮播图点击事件
+              SpeechPlugin.start().then((value){
+                print("mao"+value);
+              });
             },
             pagination: SwiperPagination(
               alignment: Alignment.bottomRight,
