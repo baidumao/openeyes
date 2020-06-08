@@ -22,13 +22,12 @@ class MainActivity: FlutterActivity() {
         SplashScreen.show(this, true)
         super.onCreate(savedInstanceState, persistentState)
 //        GeneratedPluginRegistrant.registerWith(flutterEngine);
-        SpeechManager.getInstance().init(this)
 
-        
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine!!)
+        SpeechManager.getInstance().init(this)
         mSpeechPlugin = SpeechPlugin.registerWith(flutterEngine,this)
     }
 
