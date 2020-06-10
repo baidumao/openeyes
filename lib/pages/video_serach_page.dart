@@ -108,6 +108,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
          model.query = result;
          model.loadMore(loadMore: false);
        }
+     }
+     ).catchError((e){
+       print("------------catch:" + e.toString());
+
      });
    }
 
