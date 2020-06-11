@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutteropenyes/repository/mine_repository.dart';
+import 'package:flutteropenyes/util/navigator_manager.dart';
+import 'package:image_picker/image_picker.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -8,7 +13,12 @@ class MinePage extends StatefulWidget {
 
 class _MinePageState extends State<MinePage> {
   var _imageFile;
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getAvatarPath();
+  }
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -23,13 +33,15 @@ class _MinePageState extends State<MinePage> {
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
                     radius: 44,
-                    backgroundImage: AssetImage('images/ic_img_avatar.png')
-//                    AssetImage('images/ic_img_avatar.png')
-//                        : FileImage(_imageFile),
+                    backgroundImage: _imageFile==null?
+                    AssetImage('images/ic_img_avatar.png')
+                        : FileImage(_imageFile),
                   ),
                 ),
                 //头像点击
-                onTap: () {},
+                onTap: () {
+                  _showSelectPhotoDialog(context);
+                },
               ),
               Container(
                 alignment: Alignment.topCenter,
@@ -109,5 +121,48 @@ class _MinePageState extends State<MinePage> {
         ),
       ),
     );
+  }
+
+  void _showSelectPhotoDialog(BuildContext context) {
+        showModalBottomSheet(context: context, builder: (contexnt){
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _bottomWidget('拍照', () {
+                NavigatorManager.back();
+                _getImage(ImageSource.camera);
+              }),
+              _bottomWidget('相册', () {
+                NavigatorManager.back();
+                _getImage(ImageSource.gallery);
+              }),
+              _bottomWidget('取消', () {
+                NavigatorManager.back();
+              })
+            ],
+          );
+        });
+  }
+  Widget _bottomWidget(String text, VoidCallback callback) {
+    return ListTile(
+        title: Text(text, textAlign: TextAlign.center), onTap: callback);
+  }
+
+  //模拟头像选择修改，目前存储在本地，实际开发应当上传到云存储平台
+  Future _getImage(ImageSource source) async {
+    var imageFile = await ImagePicker.pickImage(source: source);
+    setState(() {
+      _imageFile = imageFile;
+      print(_imageFile.toString());
+    });
+    MineRepository.saveAvatarPath(imageFile);
+  }
+  _getAvatarPath() async {
+    var userAvatarPath = await MineRepository.getAvatarPath();
+    if (userAvatarPath != null && userAvatarPath.isNotEmpty) {
+      setState(() {
+        _imageFile = File(userAvatarPath);
+      });
+    }
   }
 }
