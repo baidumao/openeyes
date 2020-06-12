@@ -6,6 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutteropenyes/config/string.dart';
 import 'file:///D:/Work2020/flutter/openeyes/lib/provider/home_page_model.dart';
 import 'package:flutteropenyes/model/issue_model.dart';
+import 'package:flutteropenyes/pages/video_detail_page.dart';
 import 'package:flutteropenyes/pages/video_serach_page.dart';
 import 'package:flutteropenyes/plugin/speech_plugin.dart';
 import 'package:flutteropenyes/util/navigator_manager.dart';
@@ -114,9 +115,8 @@ class _HomePageState extends State<HomePage> {
             },
             onTap: (index){
             //轮播图点击事件
-              SpeechPlugin.start().then((value){
-                print("mao"+value);
-              });
+              NavigatorManager.to(
+                  VideoDetailPage(data: model.bannerList[index].data));
             },
             pagination: SwiperPagination(
               alignment: Alignment.bottomRight,

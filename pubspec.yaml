@@ -41,7 +41,8 @@ dependencies:
   flustars: ^0.2.6+1
   share: ^0.6.3+5
   image_picker: ^0.6.6+4
-
+  chewie: ^0.9.10
+  video_player: ^0.10.8+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,6 +74,8 @@ flutter:
     - images/icon_comment_grey.png
     - images/icon_like.png
     - images/icon_comment.png
+    - images/ic_share_white.png
+    - images/img_load_fail.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
